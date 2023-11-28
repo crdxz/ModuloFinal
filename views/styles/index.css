@@ -1,0 +1,158 @@
+:root {
+    --green-Dark : #3A4D39;
+    --green-ligth : #ECE3CE;
+    --green-medium : #739072;
+    --black : #232D22;
+
+    --font-primary : "Bebas Neue Regular", sans-serif;
+    --font-secondary : "Futura Std Book", sans-serif;
+}
+
+
+body {
+    margin: 0;
+    top: 0;
+    font-family: var(--font-secondary);
+}
+
+.contenedor{
+    min-height: 100vh;
+    background-color: gray;
+    display: flex;
+}
+
+.cont {
+    min-height: 100vh;
+    width: 50%;
+}
+
+.cont_izq {
+    background-color: var(--green-Dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cont_der {
+    background-color: var(--green-ligth);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cont_init{
+    background-color: var(--green-medium);
+    width: 50%;
+    min-height: 60%;
+    border-radius: 50px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+
+    
+}
+.cont_add{
+    width: 90%;
+    border-radius: 50px;
+    margin: 30px 0;
+}
+.title-big{
+    font-family: var(--font-primary);
+    font-size: 100px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    color: var(--green-Dark);
+    text-align: center;
+    text-justify: center;
+    line-height: 90px;
+}
+
+.title-addpersona{
+    font-size: 4.5em;
+    text-align: left;
+
+}
+
+.title-small{
+    font-family: var(--font-secondary) !important;
+    color: var(--black);
+    font-size: 20px;
+}
+
+.title-small{
+    font-family: var(--font-secondary) !important;
+    color: var(--black);
+    font-size: 20px;
+}
+
+.form-codigo{
+    border-radius: 8px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+input{
+    border: 0;
+    border-radius: 8px;
+    background-color: var(--green-ligth);
+    width: 100%;
+    min-height: 40px;
+}
+.boton{
+    background: none;
+    border: 0;
+    color: var(--green-ligth);
+    text-decoration: none;
+    padding: 5px 10px;
+    font-size: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    -webkit-transition: width .3s, background .3s;
+    -moz-transition: width .3s, background .3s;
+    -o-transition: width .3s, background .3s;
+    transition: width .3s, background .3s;
+    -webkit-transition-timing-function: linear;
+    -moz-transition-timing-function: linear;
+    -o-transition-timing-function: linear;
+    transition-timing-function: linear;
+    box-shadow: 0px 10px 10px -3px rgba(0,0,0,0.1);
+}
+
+.boton-init{
+    background: var(--green-Dark);
+    color: var(--green-ligth);
+
+}
+.boton-enviar{
+    background: none;
+    border: 0;
+    background: var(--green-Dark);
+    color: var(--green-ligth);
+    text-decoration: none;
+    padding: 0 40px;
+    margin-right: 20px;
+    min-height: 40px ;
+    font-size: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    box-shadow: 0px 10px 10px -3px rgba(0,0,0,0.1);
+}
+.boton-enviar:hover{
+    box-shadow: inset 0 0 0 2px var(--green-Dark);
+    background-color: var(--green-ligth);
+    color: var(--green-Dark);
+}
+
+.boton:hover {
+    color: var(--green-Dark);
+    background: var(--green-ligth);
+}
+
+.form-control, select{
+    background-color: var(--green-ligth) !important;
+    border: solid 2px var(--green-Dark) !important;
+}
+
+
+

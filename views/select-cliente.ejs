@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesion</title>
+    <link rel="icon" type="image/png" href="img/Favicon.png">
+
+    <!-- Custom css -->
+    <link rel="stylesheet" href="styles/iniciar.css">
+
+</head>
+
+<body>
+    <div class="cont">
+        <div class="">
+            <div class="titulo">
+                <h1> Bienvenido(a) de nuevo <br> <span class="nombre">
+                        <%=empleado.NOMBRE%>
+                    </span></h1>
+                <p>
+                    - <%=empleado.CARGO%>
+                </p>
+
+            </div>
+            <div class="cont-bar">
+                <div class="filtros">
+                    <form action="/buscar_cliente" method="post">
+
+                        <input style="display:none" class="inp-filtro" type="text" name="codEmpleado" id="codEmpleado"
+                            value=<%=empleado.CODIGO%> >
+                        <input class="inp-filtro" type="text" name="nombre" id="nombre" placeholder="nombre">
+                        <input class="inp-filtro" type="number" name="documento" id="documento" placeholder="documento">
+                        <select class="sel-filtro" id="tipoPer" name="tipoPer" class="form-select"
+                            aria-placeholder="Tipo Persona" required>
+                            <option value="none" selected>Tipo persona</option>
+                            <% tipoPer.forEach((d)=> {%>
+                                <option value=<%=d.IDTIPOPERSONA%> ><%= d.DESCTIPOPERSONA%>
+                                </option>
+                                <% }); %>
+                        </select>
+                        <button class="boton" type="submit">Buscar persona</button>
+                    </form>
+                </div>
+                <a class="boton" id="nueva_persona" href="#">Nueva persona</a>
+            </div>
+
+            <div class="cont-table blur">
+
+
+
+                
+
+                    <table class="table">
+                        <thead>
+                            <tr class="bg-primary text-white">
+                                <th scope="col">Tipo de<br>Persona</th>
+                                <th scope="col">Tipo de<br>Docummento</th>
+                                <th scope="col">Numero de<br>Documento</th>
+                                <th scope="col">nombre del<br>Cliente</th>
+                                <th scope="col">Facturar</th>
+                            </tr>
+                        </thead>
+
+                        <% if (personas != null) {%>
+
+                        <tbody>
+                            <% personas.forEach((result)=>{ %>
+                                <tr>
+                                    <td>
+                                        <%= result.IDTIPOPERSONA %>
+                                    </td>
+                                    <td>
+                                        <%= result.IDTIPODOC %>
+                                    </td>
+                                    <td>
+                                        <%= result.NDOCUMENTO %>
+                                    </td>
+                                    <td>
+                                            <%= result.NOMBRE %>
+                                                <%= result.APELLIDO %>
+                                    </td>
+                                    <td>
+                                        <%= result.o_telefono %>
+                                    </td>
+                                </tr>
+                                <% }); %>
+                        </tbody>
+                        <%}%>
+                    </table>
+                    
+            </div>
+        </div>
+    </div>
+
+    <!-- Nueva persona -->
+
+    <div class="alerta">
+        <div class="cont_add">
+            <div>
+                <h2 class="title-big title-addpersona">Ingresar persona al sistema</h2>
+            </div>
+
+            <div>
+                <form action="/addPersona" method="POST">
+                    <input style="display:none" class="inp-filtro" type="text" name="codEmpleado" id="codEmpleado"
+                        value=<%=empleado.CODIGO%> >
+                    <hr size="2px" color="black" />
+                    <div class="row mt-20">
+                        <div class="col-6">
+                            <label for="tipoPer" class="title-small">Tipo Persona:</label>
+                            <select id="tipoPer" name="tipoPer" class="form-select" aria-label="Default selected"
+                                tabindex="4" required>
+                                <% tipoPer.forEach((data)=> {%>
+                                    <option value=<%=data.IDTIPOPERSONA%> ><%= data.DESCTIPOPERSONA%>
+                                    </option>
+                                    <% }); %>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label for="tipoDoc" class="title-small">Tipo documento: </label>
+                            <select id="tipoDoc" name="tipoDoc" class="form-select" aria-label="Default selected"
+                                tabindex="3" required>
+                                <% tipoDoc.forEach((data)=> {%>
+                                    <option value=<%=data.IDTIPODOC%> ><%= data.DESCTIPODOC%>
+                                    </option>
+                                    <% }); %>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="documento" class="title-small">Numero de documento</label>
+                        <input type="number" class="form-control" id="documento" name="documento" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nombre" class="title-small">Nombre: </label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="apellido" class="title-small">Apellido: </label>
+                        <input type="text" class="form-control" id="apellido" name="apellido" required>
+                    </div>
+
+                    <div class="mb-3 ">
+                        <div class="column ">
+                            <label for="direccion" class="title-small">Dirección: </label>
+                            <a href="#" class="nueva_direccion">+</a>
+                        </div>
+
+                        <div class="direcciones">
+                            <div class="direccion">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cont-bar exit-butons">
+                        <button type="submit" class="boton-enviar boton-blk">Agregar</button>
+                        <a href="#" class="cancelar boton-blk">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nueva dirección -->
+
+    <div class="new-direccion">
+        <div class="cont-new-dir">
+            <div>
+                <h2 class="title-big title-addDireccion">Añadir nueva dirección</h2>
+                <hr size="1.5px" color="black" />
+                <div>
+                    <div class="fila">
+                        <div class="dir-component">
+                            <label for="tipoVia" class="dir-title-small">Tipo Via:</label>
+                            <select id="tipoVia" name="tipoVia" class="dir-form-select" aria-label="Default selected"
+                                required>
+                                <option value='VI'>VI</option>
+                                <option value='VI'>VI</option>
+                                <option value='VI'>VI</option>
+                            </select>
+                        </div>
+                        <div class="dir-component">
+                            <label for="NVia" class="dir-title-small">N° Via</label>
+                            <input type="number" class="dir-form-control" id="NVia" name="NVia" required>
+                        </div>
+                        <div class="dir-component">
+                            <label for="LVia" class="dir-title-small">Letra Via</label>
+                            <input type="text" class="dir-form-control" id="LVia" name="LVia" required>
+                        </div>
+                        <div class="dir-component">
+                            <label for="pre_Bis" class="dir-title-small">BIS:</label>
+                            <select id="pre_Bis" name="pre_Bis" class="dir-form-select" aria-label="Default selected">
+                                <option value='none'></option>
+                                <option value='BIS'>BIS</option>
+                            </select>
+                        </div>
+                        <div class="dir-component">
+                            <label for="LBis" class="dir-title-small">Letra Bis</label>
+                            <input type="text" class="dir-form-control" id="LBis" name="LBis" required>
+                        </div>
+                        <div class="dir-component">
+                            <label for="cuadrante" class="dir-title-small">Cuadrante:</label>
+                            <select id="cuadrante" name="cuadrante" class="dir-form-select"
+                                aria-label="Default selected">
+                                <option value='VI'>cua</option>
+                                <option value='VI'>VI</option>
+                                <option value='VI'>VI</option>
+                            </select>
+                        </div>
+                        <div class="dir-component">
+                            <label for="NViaG" class="dir-title-small">N° Via Gene</label>
+                            <input type="number" class="dir-form-control" id="NViaG" name="NViaG" required>
+                        </div>
+                    </div>
+
+                    <div class="fila">
+                        <div class="dir-component">
+                            <label for="LViaG" class="dir-title-small">L ViaGene</label>
+                            <input type="text" class="dir-form-control" id="LViaG" name="LViaG" required>
+                        </div>
+                        <div class="dir-component">
+                            <label for="pre_Bis2" class="dir-title-small">BIS:</label>
+                            <select id="pre_Bis2" name="pre_Bis2" class="dir-form-select" aria-label="Default selected">
+                                <option value='none'></option>
+                                <option value='BIS'>BIS</option>
+                            </select>
+                        </div>
+                        <div class="dir-component">
+                            <label for="LBis2" class="dir-title-small">Letra Bis</label>
+                            <input type="text" class="dir-form-control" id="LBis2" name="LBis2" required>
+                        </div>
+                        <div class="dir-component">
+                            <label for="NPlaca" class="dir-title-small">N° Placa</label>
+                            <input type="number" class="dir-form-control" id="NPlaca" name="NPlaca" required>
+                        </div>
+                        <div class="dir-component">
+                            <label for="cuadrante2" class="dir-title-small">Cuadrante:</label>
+                            <select id="cuadrante2" name="cuadrante2" class="dir-form-select"
+                                aria-label="Default selected">
+                                <option value='VI'>cua</option>
+                                <option value='VI'>VI</option>
+                                <option value='VI'>VI</option>
+                            </select>
+                        </div>
+                        <div class="dir-component">
+                            <label for="barrio" class="dir-title-small">Barrio:</label>
+                            <select id="barrio" name="barrio" class="dir-form-select" aria-label="Default selected">
+                                <option value='VI'>Barrio</option>
+                                <option value='VI'>VI</option>
+                                <option value='VI'>VI</option>
+                            </select>
+                        </div>
+                        <div class="dir-component">
+                            <label for="NomBarrio" class="dir-title-small">Nombre Barrio</label>
+                            <input type="text" class="dir-form-control" id="NomBarrio" name="NomBarrio" required>
+                        </div>
+                    </div>
+
+                    <div class="fila">
+                        <div class="dir-component">
+                            <label for="manzana" class="dir-title-small">Manzana:</label>
+                            <select id="manzana" name="manzana" class="dir-form-select" aria-label="Default selected">
+                                <option value='VI'>Manzana</option>
+                                <option value='VI'>VI</option>
+                                <option value='VI'>VI</option>
+                            </select>
+                        </div>
+                        <div class="dir-component">
+                            <label for="IdManzana" class="dir-title-small">Id Manzana: </label>
+                            <input type="text" class="dir-form-control" id="IdManzana" name="IdManzana" required>
+                        </div>
+                        <div class="dir-component">
+                            <label for="urbanizacion" class="dir-title-small">Urbanizacion:</label>
+                            <select id="urbanizacion" name="urbanizacion" class="dir-form-select"
+                                aria-label="Default selected">
+                                <option value='VI'>urbanizacion</option>
+                                <option value='VI'>VI</option>
+                                <option value='VI'>VI</option>
+                            </select>
+                        </div>
+                        <div class="dir-component">
+                            <label for="nomUrbanizacion" class="dir-title-small">Nombre Urba: </label>
+                            <input type="text" class="dir-form-control" id="nomUrbanizacion" name="nomUrbanizacion"
+                                required>
+                        </div>
+                        <div class="dir-component">
+                            <label for="tipoPredio" class="dir-title-small">Tipo de predio:</label>
+                            <select id="tipoPredio" name="tipoPredio" class="dir-form-select"
+                                aria-label="Default selected">
+                                <option value='VI'>Predio</option>
+                                <option value='VI'>VI</option>
+                                <option value='VI'>VI</option>
+                            </select>
+                        </div>
+                        <div class="dir-component">
+                            <label for="IdPredio" class="dir-title-small">Id predio: </label>
+                            <input type="text" class="dir-form-control" id="IdPredio" name="IdPredio" required>
+                        </div>
+                        <div class="dir-component">
+                            <label for="complemento" class="dir-title-small">Complemento:</label>
+                            <select id="complemento" name="complemento" class="dir-form-select"
+                                aria-label="Default selected">
+                                <option value='VI'>complemento</option>
+                                <option value='VI'>VI</option>
+                                <option value='VI'>VI</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="cont-bar exit-butons">
+                        <button type="submit" class="dir-boton-enviar boton-blk">Agregar</button>
+                        <a href="#" class="dir-cancelar boton-blk">Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- custom js -->
+
+    <script>
+
+        document.getElementById('nueva_persona').addEventListener('click', () => {
+            document.querySelector('.alerta').style.display = 'flex';
+            document.body.style.overflowY = 'hidden';
+        });
+
+        document.querySelector('.cancelar').addEventListener('click', () => {
+            document.querySelector('.alerta').style.display = 'none';
+            document.body.style.overflowY = 'auto';
+        });
+
+        document.querySelector('.nueva_direccion').addEventListener('click', () => {
+            document.querySelector('.new-direccion').style.display = 'flex';
+        });
+
+        document.querySelector('.dir-cancelar').addEventListener('click', () => {
+            document.querySelector('.new-direccion').style.display = 'none';
+        });
+
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+        });
+    </script>
+</body>
+
+</html>

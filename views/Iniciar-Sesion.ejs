@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesion</title>
+    <link rel="icon" type="image/png" href="img/Favicon.png">
+
+    <!-- Custom css -->
+    <link rel="stylesheet" href="styles/main.css">
+
+</head>
+
+<body>
+    <div class="cont">
+        <div class="cont_init">
+            <h1 class="title-big">INICIAR SESIÓN</h1>
+            <form action="/iniciar_sesion" method="POST">
+                <h3 class="title-small">Código de empleado:</h3>
+                <div class="form-codigo">
+                    <input type="number" placeholder="00000" id="codigo" name="codigo" tabindex="1" required>
+                </div>
+                <button type="submit" class="boton boton-init" tabindex="2">Iniciar sesión</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Empleado no encontrado -->
+
+    <div class="alerta">
+        <div class="cont-alerta">
+            <div id="text-alerta" class="text-alerta">El empleado con el codigo <span id="cod-Empleado">0000</span> no ha sido encontrado
+            </div>
+            <a id="boton-alerta" href="#" class="boton boton-alerta">cerrar</a>
+        </div>
+    </div>
+
+    <!-- custom js -->
+
+    <script>
+        document.getElementById("boton-alerta").addEventListener("click", function () {
+            window.location.href = "/";
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var cod = '<%=cod_empleado%>' ?? null;
+
+            console.log(cod)
+            if (cod) {
+                document.querySelector(".alerta").style.display = "flex";
+                document.getElementById('cod-Empleado').innerHTML = cod;
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>
